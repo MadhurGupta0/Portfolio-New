@@ -5,7 +5,7 @@ Opens a case study: the title, one line, the title block, then the system drawn 
 ## You provide
 
 - `name`, `tagline`, `role`, `year`, `status`, `links`, `contribution`, `metrics`: from the project's data.
-- `stages`, with a `note` on each: the detail schematic.
+- `stages`: a responsive schematic. With decision notes, it stacks stages beside their notes. Without notes, it uses a compact horizontal layout when space permits and stacks on narrow screens.
 - `flowCaption`: one sentence saying which path through the system the schematic draws.
 - `backHref`: where "All work" goes.
 

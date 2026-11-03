@@ -608,7 +608,7 @@ export function CaseHeader({ name, tagline, backHref = '/#work', role, year, sta
         <div className="mg-field mg-field--grid mg-case__plate">
           <figure className="mg-wrap" style={{ marginBlock: 0 }}>
             {flowCaption !== undefined && <figcaption className="mg-case__caption">{flowCaption}</figcaption>}
-            <Pipeline size="detail" run stages={stages} label={flowLabel ?? 'How ' + name + ' flows'} />
+            <Pipeline size={stages.some(stage => typeof stage !== 'string' && Boolean(stage.note)) ? 'detail' : 'hero'} run stages={stages} label={flowLabel ?? 'How ' + name + ' flows'} />
           </figure>
         </div>
       )}
