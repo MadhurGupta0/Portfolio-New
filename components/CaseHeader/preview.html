@@ -1,0 +1,44 @@
+<!-- @dsCard group="Case study" width=1152 height=1122 subtitle="How a case study opens" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CaseHeader</title>
+<style>
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../preview.js"></script>
+<script src="../lib/react.production.min.js"></script>
+<script src="../lib/react-dom.production.min.js"></script>
+<script src="../bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function () {
+  var M = window.MG, h = React.createElement;
+  var el = h(M.CaseHeader, {
+    name: 'SelfMind (Mello)',
+    tagline: 'Production AI mental-wellness companion across web, iOS and Android.',
+    role: 'Core full-stack engineer', year: '2025–2026', status: 'live',
+    links: [{ label: 'selfmind.app', href: 'https://www.selfmind.app' }, { label: 'Web app', href: 'https://mello-mind-journey.vercel.app' }],
+    contribution: 'Team-built. I own the backend REST API, the billing and entitlement pipeline, the voice agents and the web frontend.',
+    flowLabel: 'How one voice turn flows through SelfMind',
+    flowCaption: 'One voice turn, start to finish. The client never talks to a model provider.',
+    stages: [
+      { label: 'Microphone', kind: 'external', note: 'The person speaks. Audio reaches the agent over LiveKit.' },
+      { label: 'Speech to text', note: 'The turn is transcribed as it arrives.' },
+      { label: 'Crisis check', kind: 'gate', note: 'Tuned to over-trigger rather than miss, and pinned by test vectors instead of prompt wording.' },
+      { label: 'Language model', note: 'Azure OpenAI or AWS Bedrock, reached only through the server-side proxy.' },
+      { label: 'Text to speech', note: 'The reply is spoken back.' },
+      { label: 'Speaker', kind: 'external' }
+    ],
+    metrics: [{ value: '94', label: 'REST endpoints' }, { value: '3', label: 'platforms: web, iOS, Android' }, { value: '3', label: 'billing providers unified' }]
+  });
+  ReactDOM.createRoot(document.getElementById('root')).render(el);
+})();
+</script>
+</body>
+</html>

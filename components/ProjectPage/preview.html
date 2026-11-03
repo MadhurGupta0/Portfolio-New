@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project case study</title>
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../preview.js"></script>
+<script src="../lib/react.production.min.js"></script>
+<script src="../lib/react-dom.production.min.js"></script>
+<script src="../bundle.js"></script>
+<script src="../projects.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function () {
+  var M = window.MG, h = React.createElement;
+  var slug = new URL(location.href).searchParams.get('project');
+  var project = window.MGProjects.find(function (item) { return item.slug === slug; });
+  var home = '../HomePage/preview.html';
+  var header = h(M.SiteHeader, { name: 'Madhur Gupta', href: home, links: [
+    { label: 'Work', href: home + '#work', current: true },
+    { label: 'Experience', href: home + '#experience' },
+    { label: 'Contact', href: '#contact' }
+  ] });
+  var content;
+  if (!project) {
+    document.title = 'Project not found';
+    content = h('main', { className: 'mg-wrap' }, h('h1', null, 'Project not found'),
+      h('p', null, 'No case study is available for this project identifier.'),
+      h(M.TextLink, { href: home + '#work' }, 'All work'));
+  } else {
+    document.title = project.name + ' — case study';
+    var gaps = ['The full problem statement and implementation decisions have not been provided.',
+      'Test results, verification evidence and repository or live-site links have not been provided.'];
+    if (!project.role && !project.contribution) gaps.push('Ownership has not been provided.');
+    if (!project.year) gaps.push('Project dates have not been provided.');
+    if (!project.status) gaps.push('Project status has not been provided.');
+    if (!project.stages) gaps.push('The system stages have not been provided; no pipeline is inferred.');
+    if (!project.metrics) gaps.push('Measured outcomes have not been provided.');
+    var index = window.MGProjects.indexOf(project);
+    var next = window.MGProjects[(index + 1) % window.MGProjects.length];
+    content = h('main', null,
+      h(M.CaseHeader, Object.assign({}, project, { tagline: project.tagline || project.description, backHref: home + '#work' })),
+      h('div', { className: 'mg-wrap', style: { marginTop: 'var(--space-16)' } },
+        h(M.Section, { title: 'What is documented' },
+          h('p', null, project.tagline || project.description),
+          h('p', null, 'This partial case study uses only the information supplied in the portfolio. Missing details are listed below.')),
+        h(M.Section, { title: 'Built with' }, h('p', null, project.techStack.join(', '))),
+        h(M.Section, { title: 'Known gaps' }, h(M.KnownGaps, { items: gaps })),
+        h(M.NextProject, { name: next.name, href: next.href, tagline: next.tagline || next.description })));
+  }
+  var contact = h(M.ContactBlock, { id: 'contact', lead: 'Email is the fastest way to reach me.',
+    email: 'guptamadhur03@gmail.com', location: 'Noida, India', links: [
+      { label: 'GitHub', href: 'https://github.com/MadhurGupta0' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/madhur-gupta-4330162a6a' }
+    ] });
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null, header, content, contact));
+})();
+</script>
+</body>
+</html>

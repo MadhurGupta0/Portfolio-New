@@ -1,0 +1,114 @@
+<!-- @dsCard group="Pages" width=1280 height=3866 page subtitle="The home page, assembled" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home page</title>
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../preview.js"></script>
+<script src="../lib/react.production.min.js"></script>
+<script src="../lib/react-dom.production.min.js"></script>
+<script src="../bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function () {
+  var M = window.MG, h = React.createElement;
+
+  var header = h(M.SiteHeader, { name: 'Madhur Gupta', href: './preview.html', links: [
+    { label: 'Work', href: '#work', current: true },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Contact', href: '#contact' }
+  ] });
+
+  var hero = h(M.Hero, {
+    statement: 'Madhur Gupta builds the backends behind AI products.',
+    lead: 'Streaming APIs, real-time voice, billing across three app stores, and payments that settle on-chain.',
+    flowLabel: 'How one voice turn flows through SelfMind',
+    stages: [
+      { label: 'Microphone', kind: 'external' },
+      'Speech to text',
+      'Language model',
+      'Text to speech',
+      { label: 'Speaker', kind: 'external' }
+    ],
+    caption: h(React.Fragment, null, 'One voice turn in SelfMind, a production AI wellness app. ', h(M.TextLink, { href: '../ProjectPage/preview.html?project=selfmind' }, 'Read the case study')),
+    facts: [
+      { label: 'Role', value: 'AI and full-stack developer' },
+      { label: 'Based in', value: 'Noida, India' },
+      { label: 'Email', wide: true, value: h(M.TextLink, { href: 'mailto:guptamadhur03@gmail.com' }, 'guptamadhur03@gmail.com') },
+      { label: 'Elsewhere', value: [
+        h(M.TextLink, { key: 'g', href: 'https://github.com/MadhurGupta0' }, 'GitHub'),
+        h(M.TextLink, { key: 'l', href: 'https://www.linkedin.com/in/madhur-gupta-4330162a6a' }, 'LinkedIn')
+      ] }
+    ]
+  });
+
+  var work = h('div', { className: 'mg-wrap' },
+    h(M.SectionHead, { title: 'Selected work', id: 'work' },
+      h(M.FilterBar, { options: ['All', 'AI / Agentic', 'Full-Stack', 'Backend', 'Automation', 'Web3 / Blockchain', 'Data / ML'] })),
+    h(M.ProjectCard, {
+      name: 'SelfMind (Mello)', href: '../ProjectPage/preview.html?project=selfmind',
+      tagline: 'Production AI mental-wellness companion across web, iOS and Android',
+      status: 'live', year: '2025–2026', categories: ['Full-Stack', 'AI / Agentic'],
+      contribution: 'Team-built. I own the backend REST API, the billing and entitlement pipeline, the voice agents and the web frontend.',
+      techStack: ['Python', 'Flask', 'Supabase', 'PostgreSQL', 'pgvector', 'Azure OpenAI', 'LiveKit'],
+      flowLabel: 'How a chat message flows through SelfMind',
+      stages: [{ label: 'App', kind: 'external' }, 'REST API', { label: 'Crisis check', kind: 'gate' }, 'Model proxy', { label: 'Azure OpenAI', kind: 'external' }, 'Token stream'],
+      metrics: [{ value: '94', label: 'REST endpoints' }, { value: '3', label: 'platforms: web, iOS, Android' }, { value: '3', label: 'billing providers unified' }]
+    }),
+    h(M.ProjectCard, {
+      name: 'Mello Go Backend', href: '../CaseStudyPage/preview.html',
+      tagline: 'A standard-library Go backend for a production AI wellness app',
+      status: 'built', year: '2026', categories: ['Backend', 'AI / Agentic'],
+      role: 'Sole author',
+      techStack: ['Go 1.22', 'net/http', 'coder/websocket', 'Supabase', 'PostgREST', 'Azure OpenAI', 'Docker'],
+      flowLabel: 'How a request flows through the Go backend',
+      stages: [{ label: 'App', kind: 'external' }, { label: 'Bearer auth', kind: 'gate' }, 'Handler', { label: 'Crisis check', kind: 'gate' }, 'Model client', 'Token stream'],
+      metrics: [{ value: '101', label: 'HTTP routes' }, { value: '62', label: 'Go files' }, { value: '~19.9k', label: 'lines of Go' }, { value: '2', label: 'external dependencies' }]
+    }),
+    h('div', { className: 'mg-projects mg-projects--pair' },
+      h(M.ProjectCard, {
+        compact: true, name: 'SelfMind Content Engine', href: '../ProjectPage/preview.html?project=content-engine',
+        tagline: 'Six-layer AI content pipeline with human-in-the-loop approval',
+        status: 'built', year: '2026', categories: ['AI / Agentic', 'Automation'], role: 'Author',
+        techStack: ['Python', 'Azure OpenAI', 'gpt-image', 'Supabase', 'Telegram'],
+        stages: ['Ingest', 'Intelligence', 'Expansion', 'Creative', { label: 'Approval', kind: 'gate' }, 'Publish'],
+        metrics: [{ value: '6', label: 'pipeline layers' }, { value: '3', label: 'publishing platforms' }]
+      }),
+      h(M.ProjectCard, {
+        compact: true, name: 'x402 Payment Backend', href: '../ProjectPage/preview.html?project=x402-backend',
+        tagline: 'HTTP 402 crypto micropayments settling USDC on Base',
+        status: 'built', year: '2025', categories: ['Web3 / Blockchain', 'Backend'], role: 'Author',
+        techStack: ['Python', 'Flask', 'TypeScript', 'Express', 'x402', 'Supabase'],
+        stages: [{ label: 'Client', kind: 'external' }, '402 response', { label: 'EIP-712 check', kind: 'gate' }, { label: 'USDC on Base', kind: 'external' }, 'Access'],
+        metrics: [{ value: '2', label: 'independent implementations' }, { value: 'EIP-712', label: 'signed settlement' }]
+      })
+    ),
+    h(M.SectionHead, { title: 'More work' }),
+    h(M.WorkIndex, { projects: [
+      { name: 'Multi-chain subscription and referral bot', href: '../ProjectPage/preview.html?project=subscription-bot', description: 'Telegram bot that verifies on-chain payments on Base and Solana and manages paid group access.', categories: ['Web3 / Blockchain', 'Backend'], techStack: ['Python', 'web3.py', 'aiohttp', 'Supabase'] },
+      { name: 'ACP agent commerce protocol', href: '../ProjectPage/preview.html?project=acp', description: 'Agents and an API built on the Virtuals Agent Commerce Protocol.', categories: ['AI / Agentic', 'Web3 / Blockchain'], techStack: ['Python', 'Virtuals ACP'] },
+      { name: 'Habit tracker', href: '../ProjectPage/preview.html?project=habit-tracker', description: 'A cross-platform mobile habit tracker.', categories: ['Full-Stack'], techStack: ['Flutter', 'Dart'] },
+      { name: 'Employee turnover prediction', href: '../ProjectPage/preview.html?project=employee-turnover', description: 'A machine-learning model predicting employee turnover.', categories: ['Data / ML'], techStack: ['Python', 'Jupyter', 'scikit-learn'] }
+    ] }),
+    h(M.SectionHead, { title: 'Experience', id: 'experience' }),
+    h(M.ExperienceItem, { slot: true, period: 'Year–present', role: 'Your role', org: 'Company, city or remote',
+      summary: 'One sentence on what you owned there.',
+      points: ['An outcome, with the number or fact that proves it.', 'A second outcome. Two or three is enough.'],
+      techStack: ['The stack', 'you used', 'there'] }),
+    h(M.ExperienceItem, { slot: true, period: 'Year–year', role: 'Your role', org: 'Company, city or remote',
+      summary: 'One sentence on what you owned there.' })
+  );
+
+  var contact = h(M.ContactBlock, { id: 'contact', lead: 'Email is the fastest way to reach me.', email: 'guptamadhur03@gmail.com', location: 'Noida, India',
+    links: [{ label: 'GitHub', href: 'https://github.com/MadhurGupta0' }, { label: 'LinkedIn', href: 'https://www.linkedin.com/in/madhur-gupta-4330162a6a' }] });
+
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null, header, h('main', null, hero, work), contact));
+})();
+</script>
+</body>
+</html>

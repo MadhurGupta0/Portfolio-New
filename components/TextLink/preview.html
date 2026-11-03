@@ -1,0 +1,38 @@
+<!-- @dsCard group="Actions" width=880 height=210 subtitle="An underlined link" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TextLink</title>
+<style>
+  .demo { padding: var(--space-6); }
+  .demo--stack { display: grid; gap: var(--space-8); }
+  .demo__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+  .demo__row--wide { gap: var(--space-8); }
+  .demo__plate { min-height: 0; }
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../preview.js"></script>
+<script src="../lib/react.production.min.js"></script>
+<script src="../lib/react-dom.production.min.js"></script>
+<script src="../bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function () {
+  var M = window.MG, h = React.createElement;
+  var el = h('div', { className: 'demo demo--stack' },
+    h('p', { className: 'body', style: { margin: 0, maxWidth: 'var(--measure)' } },
+      'The Go backend is written against the standard library. ',
+      h(M.TextLink, { href: '#mello-backend-go' }, 'Read the case study'), ', or see the live product at ',
+      h(M.TextLink, { href: 'https://www.selfmind.app' }, 'selfmind.app'), '.'),
+    h(M.Field, { variant: 'plate', className: 'demo__plate' },
+      h('p', { className: 'small', style: { margin: 0 } }, 'One voice turn in SelfMind, a production AI wellness app. ', h(M.TextLink, { href: '#selfmind' }, 'Read the case study'))));
+  ReactDOM.createRoot(document.getElementById('root')).render(el);
+})();
+</script>
+</body>
+</html>

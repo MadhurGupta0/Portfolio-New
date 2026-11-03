@@ -1,0 +1,53 @@
+<!-- @dsCard group="Work" width=1152 height=985 subtitle="A piece of work on the home page" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ProjectCard</title>
+<style>
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../preview.js"></script>
+<script src="../lib/react.production.min.js"></script>
+<script src="../lib/react-dom.production.min.js"></script>
+<script src="../bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function () {
+  var M = window.MG, h = React.createElement;
+  var el = h('div', { className: 'mg-wrap', style: { paddingBlock: 'var(--space-8)' } },
+    h(M.ProjectCard, {
+      name: 'Lighter Farm', href: '#lighter-farm',
+      tagline: 'Token staking and rewards platform on Base',
+      status: 'shipped', year: '2025', categories: ['Web3 / Blockchain', 'Full-Stack'], role: 'Full-stack engineer',
+      techStack: ['Python', 'Flask', 'web3.py', 'Base', 'Supabase', 'React', 'TypeScript'],
+      flowLabel: 'How a deposit becomes a staked balance',
+      stages: [{ label: 'USDC on Base', kind: 'external' }, 'Transfer indexer', 'Credit', 'Stake', 'Rewards'],
+      metrics: [{ value: '22', label: 'backend endpoints' }, { value: '3', label: 'USDC transfer strategies' }, { value: '10%', label: 'referral reward, distributed automatically' }]
+    }),
+    h('div', { className: 'mg-projects mg-projects--pair' },
+      h(M.ProjectCard, {
+        compact: true, name: 'Social Media Reels Automation', href: '#social-media-automation',
+        tagline: 'SEO trends to auto-published Instagram Reels',
+        status: 'built', year: '2026', categories: ['AI / Agentic', 'Automation'], role: 'Author',
+        techStack: ['Python', 'AWS Bedrock', 'yt-dlp', 'Reap API', 'Instagram Graph API', 'Supabase'],
+        stages: ['Trends', 'Brief', 'Download', 'Clip', 'Music', 'Rank', 'Upload'],
+        metrics: [{ value: '0', label: 'manual steps per post' }, { value: '7', label: 'named, resumable states' }]
+      }),
+      h(M.ProjectCard, {
+        compact: true, name: 'OnlyCalls On-Chain Data Engine', href: '#onlycalls',
+        tagline: 'Real-time multi-chain token intelligence over async WebSockets',
+        status: 'built', year: '2025–2026', categories: ['Web3 / Blockchain', 'Data / ML'], role: 'Author',
+        techStack: ['Python', 'asyncio', 'websockets', 'msgpack', 'pandas', 'Flask'],
+        stages: [{ label: 'Chain feeds', kind: 'external' }, 'Decode', 'Enrich', 'Detect', 'Data API'],
+        metrics: [{ value: '4', label: 'chains streamed live' }, { value: '5+', label: 'enrichment sources per token' }]
+      })));
+  ReactDOM.createRoot(document.getElementById('root')).render(el);
+})();
+</script>
+</body>
+</html>

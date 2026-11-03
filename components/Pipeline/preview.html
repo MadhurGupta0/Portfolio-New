@@ -1,0 +1,54 @@
+<!-- @dsCard group="Schematic" width=1000 height=705 subtitle="The signature: a project drawn as its stages" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pipeline</title>
+<style>
+  .demo { padding: var(--space-6); }
+  .demo--stack { display: grid; gap: var(--space-8); }
+  .demo__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+  .demo__row--wide { gap: var(--space-8); }
+  .demo__plate { min-height: 0; }
+  .demo__key { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-8); margin: 0; padding: 0; list-style: none; color: var(--ink-muted); font: var(--text-small); }
+  .demo__key li { display: flex; align-items: center; gap: var(--space-3); }
+  .demo__band { padding: var(--space-8) var(--space-6); border-radius: var(--radius-sm); }
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../preview.js"></script>
+<script src="../lib/react.production.min.js"></script>
+<script src="../lib/react-dom.production.min.js"></script>
+<script src="../bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function () {
+  var M = window.MG, h = React.createElement;
+  var voice = [{ label: 'Microphone', kind: 'external' }, 'Speech to text', 'Language model', 'Text to speech', { label: 'Speaker', kind: 'external' }];
+  var key = function (kind, word, means) {
+    return h('li', null, h('span', { className: 'mg-pipe__stage' + (kind ? ' mg-pipe__stage--' + kind : '') }, h('span', { className: 'mg-pipe__node' }, word)), means);
+  };
+  var el = h('div', { className: 'demo demo--stack' },
+    h(M.Field, { className: 'demo__band' },
+      h(M.Pipeline, { size: 'hero', run: true, label: 'How one voice turn flows through SelfMind', stages: voice })),
+    h(M.Field, { variant: 'plate', className: 'demo__plate' },
+      h(M.Pipeline, { label: 'How a post is made', stages: ['Ingest', 'Intelligence', 'Expansion', 'Creative', { label: 'Approval', kind: 'gate' }, 'Publish'] })),
+    h(M.Pipeline, { label: 'How a payment unlocks access', stages: [{ label: 'Client', kind: 'external' }, '402 response', { label: 'EIP-712 check', kind: 'gate' }, { label: 'USDC on Base', kind: 'external' }, 'Access'] }),
+    h('ul', { className: 'demo__key' },
+      key('', 'Step', 'Something built here'),
+      key('gate', 'Gate', 'A check that can stop the flow'),
+      key('external', 'Outside', 'A device, a provider, a chain')),
+    h(M.Field, { className: 'demo__band' },
+      h(M.Pipeline, { size: 'detail', label: 'How on-chain data becomes a written report', stages: [
+        { label: 'Eight EVM chains', kind: 'external', note: 'Native and ERC-20 balances and transaction history, aggregated through Moralis.' },
+        { label: 'Analytics', note: 'FIFO holding periods, profit and loss, trade behaviour. Deterministic, computed off-chain.' },
+        { label: 'Narrative', note: 'The model narrates the computed numbers, not the raw transactions.' }
+      ] })));
+  ReactDOM.createRoot(document.getElementById('root')).render(el);
+})();
+</script>
+</body>
+</html>

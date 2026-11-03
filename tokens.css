@@ -1,0 +1,165 @@
+/* Madhur Gupta Portfolio — generated from tokens.json */
+:root, [data-theme="light"] {
+  --paper: #f3f5fa; /* Page ground. Cool drafting-paper white in Light, deep blueprint navy in Dark. */
+  --paper-raised: #ffffff; /* Surfaces that lift off `paper`: the site header, a table row under the pointer. */
+  --paper-sunk: #e6ebf6; /* Recessed surfaces on `paper`: inline code and code blocks. */
+  --ink: #0b1736; /* Primary text on `paper`, `paper-raised` and `paper-sunk` (13.9:1 or better in both themes). Also every schematic stroke drawn on paper, and the rule that opens a project entry. */
+  --ink-muted: #46527a; /* Secondary text on `paper`, `paper-raised` and `paper-sunk`: field labels, captions, areas, stack lists (6.4:1 or better in both themes). */
+  --line: #cbd3e6; /* Decorative hairlines between rows and sections on `paper`. Never the only edge of a control. */
+  --line-strong: #7c89ad; /* Edges that carry meaning on `paper` and `paper-raised`: title-block rules, unselected filter tags, the dashed outline that means not built yet (3.2:1 or better in both themes). */
+  --blueprint: #1f3fa6; /* The brand field: the hero, the plate behind every schematic, the contact band. Always solid and at full value, never a gradient or a tint. */
+  --blueprint-grid: #2c4db6; /* The drafting grid drawn on a `blueprint` field at `grid-pitch`. Decoration only, so it stays faint (about 1.2:1). */
+  --blueprint-line: #9fb4f5; /* Schematic strokes on a `blueprint` field: stage outlines, connectors, title-block rules (4.4:1 or better on `blueprint` in both themes). */
+  --on-blueprint: #f3f5fa; /* Text and stage labels on a `blueprint` field (8.3:1 in Light, 7.2:1 in Dark). Links on the field use it too, underlined. */
+  --on-blueprint-muted: #c5d1f7; /* Secondary text on a `blueprint` field: captions and field labels (5.7:1 or better in both themes). */
+  --signal: #ffb000; /* Honey. It means exactly two things: this is live, or this is selected. The primary button, the live lamp, the selected filter and theme, the pulse that runs through a schematic. As a fill it always carries `on-signal` text. On Light `paper` it is only 1.7:1, so there it never stands alone as text or as the only edge of a control: give it an `on-signal` outline. On `blueprint` and on Dark `paper` it reads on its own (4.3:1 or better). */
+  --on-signal: #0b1736; /* Text on a `signal` fill, and the outline around a `signal` fill (9.5:1 or better on `signal`). */
+  --link: var(--blueprint); /* Link text on `paper`, `paper-raised` and `paper-sunk`, always underlined (7.5:1 or better in both themes). */
+  --focus: var(--blueprint); /* Keyboard focus ring on paper grounds; the `focus-ring` shadow draws it (8.3:1 or better against `paper` in both themes). */
+  --focus-on-blueprint: var(--signal); /* Keyboard focus ring on a `blueprint` field; the `focus-ring-on-blueprint` shadow draws it (4.3:1 or better against `blueprint`). */
+  --focus-ring: 0 0 0 2px #f3f5fa, 0 0 0 4px #1f3fa6; /* Keyboard focus on paper grounds: a 2px gap in `paper`, then 2px of solid `focus`. The two hexes per theme are that theme's `paper` and `focus`; change them together. */
+  --focus-ring-on-blueprint: 0 0 0 2px #1f3fa6, 0 0 0 4px #ffb000; /* Keyboard focus on a `blueprint` field: a 2px gap in `blueprint`, then 2px of solid `focus-on-blueprint`. */
+}
+[data-theme="dark"] {
+  --paper: #0a1640;
+  --paper-raised: #101f55;
+  --paper-sunk: #071030;
+  --ink: #eef2ff;
+  --ink-muted: #a9b6de;
+  --line: #23357a;
+  --line-strong: #6478c4;
+  --blueprint: #2444c0;
+  --blueprint-grid: #3154d2;
+  --blueprint-line: #b1c2fa;
+  --on-blueprint: #f3f5fa;
+  --on-blueprint-muted: #d3dcfa;
+  --signal: #ffb000;
+  --on-signal: #0a1640;
+  --link: #9db5ff;
+  --focus: var(--signal);
+  --focus-on-blueprint: var(--signal);
+  --focus-ring: 0 0 0 2px #0a1640, 0 0 0 4px #ffb000;
+  --focus-ring-on-blueprint: 0 0 0 2px #2444c0, 0 0 0 4px #ffb000;
+}
+:root {
+  --space-1: 4px; /* Label to value inside a title-block cell. */
+  --space-2: 8px; /* Mark to word (status lamp, list tick); gap between filter tags. */
+  --space-3: 12px; /* Padding inside tags, stage boxes and title-block cells; gap between wrapped schematic rows. */
+  --space-4: 16px; /* Side gutter on a phone; padding inside metric cells. */
+  --space-6: 24px; /* Grid gutter and side gutter from 600px up; one blueprint square. */
+  --space-8: 32px; /* Between blocks inside a project entry; padding of a schematic plate. */
+  --space-12: 48px; /* Between project entries; section heading to its content. */
+  --space-16: 64px; /* Padding above and below a blueprint field on a phone. */
+  --space-24: 96px; /* Between page sections, and field padding, on desktop. */
+  --radius-sm: 2px; /* Buttons, tags, stage boxes, title blocks, code, plates. */
+  --radius-full: 9999px; /* Terminals in a schematic (a device, a provider, a chain) and the live lamp. */
+  --page: 1104px; /* Content width: 46 blueprint squares. */
+  --measure: 64ch; /* Longest line of prose. */
+  --grid-pitch: 24px; /* One square of the blueprint grid; equal to `space-6`. */
+  --control: 44px; /* Height of buttons; the smallest tap target for a primary action. */
+  --stroke: 1.5px; /* Schematic strokes, control borders and the dashed not-built outline. */
+  --font-display: "Anek Latin Display", "Anek Latin", "Arial Narrow", system-ui, sans-serif;
+  --font-sans: "Anek Latin", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Spline Sans Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --text-hero: 600 84px/0.98 var(--font-display); /* The one statement at the top of the home page. Fluid in `bundle.css`: 44px on a phone, 84px on a wide screen. */
+  --text-title: 600 56px/1.02 var(--font-display); /* Case-study titles and the contact line. Fluid: 36px on a phone. */
+  --text-heading: 600 40px/1.05 var(--font-display); /* The name of a featured project. Nothing else on the home page is this large except the hero. */
+  --text-figure: 600 44px/1 var(--font-display); /* Metric values, with tabular figures. A value that is a phrase rather than a number drops to 26px. */
+  --text-subheading: 600 22px/1.25 var(--font-sans); /* Section headings on the home page, headings inside a case study, the name of a compact project, a role. */
+  --text-lead: 400 21px/1.45 var(--font-sans); /* Taglines and the sentence under the hero statement. */
+  --text-body: 400 18px/1.65 var(--font-sans); /* Prose. Lines no longer than `measure`. */
+  --text-small: 400 15px/1.5 var(--font-sans); /* Stage labels, table cells, ownership lines, stack lists, button and tag labels. */
+  --text-label: 500 13px/1.35 var(--font-sans); /* Field names in a title block and the label under a metric. Sentence case, never capitals. The smallest size in the system. */
+  --text-code: 400 15px/1.6 var(--font-mono); /* Code blocks. Inline code inside prose runs at 0.86em of its paragraph. */
+}
+.hero {
+  font-family: var(--font-display);
+  font-size: 84px;
+  line-height: 0.98;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+.title {
+  font-family: var(--font-display);
+  font-size: 56px;
+  line-height: 1.02;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.heading {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -0.008em;
+}
+.figure {
+  font-family: var(--font-display);
+  font-size: 44px;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.subheading {
+  font-family: var(--font-sans);
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.lead {
+  font-family: var(--font-sans);
+  font-size: 21px;
+  line-height: 1.45;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.body {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.65;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.small {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.code {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+@font-face {
+  font-family: "Anek Latin";
+  src: url("fonts/AnekLatin-Text.woff2") format("woff2");
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anek Latin Display";
+  src: url("fonts/AnekLatin-Display.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Spline Sans Mono";
+  src: url("fonts/SplineSansMono.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,933 @@
+/* Madhur Gupta Portfolio: component styles. Loaded after tokens.css.
+   Every colour, size and face comes from a token. The only values set here that tokens.json
+   cannot carry are motion timings and the fluid ranges of the two largest type styles. */
+
+/* ---------------------------------------------------------------- context */
+
+:root,
+[data-theme] {
+  /* What a component draws with. A blueprint field re-binds these (.mg-field). */
+  --mg-ground: var(--paper);
+  --mg-text: var(--ink);
+  --mg-text-muted: var(--ink-muted);
+  --mg-stroke: var(--ink);
+  --mg-rule: var(--line);
+  --mg-edge: var(--line-strong);
+  --mg-link: var(--link);
+  --mg-ring: var(--focus-ring);
+}
+
+:root {
+  --mg-gutter: var(--space-4);
+  --mg-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --mg-quick: 120ms;
+  --mg-step: 280ms; /* one stage of the schematic pulse */
+}
+
+@media (min-width: 600px) {
+  :root { --mg-gutter: var(--space-6); }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: var(--text-body);
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--signal); color: var(--on-signal); }
+
+[class*="mg-"],
+[class*="mg-"]::before,
+[class*="mg-"]::after { box-sizing: border-box; }
+
+.mg-wrap {
+  width: min(100% - 2 * var(--mg-gutter), var(--page));
+  margin-inline: auto;
+}
+
+.mg-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------------------------------------------------------------------ field */
+/* The blueprint field. Anything placed on it draws in blueprint colours. */
+
+.mg-field {
+  --mg-ground: var(--blueprint);
+  --mg-text: var(--on-blueprint);
+  --mg-text-muted: var(--on-blueprint-muted);
+  --mg-stroke: var(--blueprint-line);
+  --mg-rule: var(--blueprint-line);
+  --mg-edge: var(--blueprint-line);
+  --mg-link: var(--on-blueprint);
+  --mg-ring: var(--focus-ring-on-blueprint);
+  background-color: var(--blueprint);
+  color: var(--on-blueprint);
+}
+
+.mg-field--grid {
+  background-image:
+    linear-gradient(var(--blueprint-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-grid) 1px, transparent 1px);
+  background-size: var(--grid-pitch) var(--grid-pitch);
+  background-position: var(--mg-gutter) 0;
+}
+
+/* From here the content column is centred, so start the grid on its left edge. */
+@media (min-width: 1152px) {
+  .mg-field--grid { background-position: calc(50% - 540px) 0; }
+}
+
+.mg-field--band { padding-block: var(--space-16); }
+
+@media (min-width: 900px) {
+  .mg-field--band { padding-block: var(--space-24); }
+}
+
+/* A plate is a field used as a figure: the blue rectangle a schematic is drawn on. */
+.mg-plate {
+  display: flex;
+  align-items: center;
+  min-height: 144px;
+  padding: var(--space-6);
+  border-radius: var(--radius-sm);
+}
+
+.mg-plate.mg-field--grid { background-position: 0 0; }
+
+/* ------------------------------------------------------------------- link */
+
+.mg-link {
+  color: var(--mg-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+  border-radius: 1px;
+  transition: text-decoration-color var(--mg-quick) var(--mg-ease);
+}
+
+.mg-link:hover { text-decoration-thickness: 3px; }
+
+.mg-link:focus-visible,
+.mg-btn:focus-visible,
+.mg-tag:focus-visible,
+.mg-switch__opt:focus-visible,
+.mg-nav__link:focus-visible,
+.mg-wordmark:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--mg-ring);
+}
+
+/* ----------------------------------------------------------------- button */
+
+.mg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--control);
+  padding: 0 var(--space-6);
+  border: var(--stroke) solid var(--mg-stroke);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--mg-text);
+  font: var(--text-small);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--mg-quick) var(--mg-ease), color var(--mg-quick) var(--mg-ease), border-color var(--mg-quick) var(--mg-ease);
+}
+
+.mg-btn:hover { background: var(--mg-text); color: var(--mg-ground); border-color: var(--mg-text); }
+.mg-btn:active { transform: translateY(1px); }
+
+.mg-btn--primary { background: var(--signal); color: var(--on-signal); border-color: var(--on-signal); }
+.mg-btn--primary:hover { background: var(--on-signal); color: var(--signal); border-color: var(--signal); }
+
+/* ----------------------------------------------------------------- status */
+/* Three marks told apart by shape, each with its word. Only "live" is lit. */
+
+.mg-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--mg-text);
+  font: var(--text-small);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.mg-status__mark {
+  flex: none;
+  width: 11px;
+  height: 11px;
+  border: var(--stroke) solid var(--mg-stroke);
+}
+
+.mg-status--live .mg-status__mark { border-radius: var(--radius-full); background: var(--signal); }
+.mg-status--shipped .mg-status__mark { background: var(--mg-stroke); }
+.mg-status--built .mg-status__mark { background: transparent; }
+
+/* -------------------------------------------------------------------- tag */
+
+.mg-filter { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; }
+
+.mg-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  border: var(--stroke) solid var(--mg-edge);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--mg-text);
+  font: var(--text-small);
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color var(--mg-quick) var(--mg-ease), background-color var(--mg-quick) var(--mg-ease);
+}
+
+.mg-tag:hover { border-color: var(--mg-stroke); }
+
+.mg-tag[aria-pressed="true"] {
+  background: var(--signal);
+  color: var(--on-signal);
+  border-color: var(--on-signal);
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------ title block */
+/* The ruled table in the corner of an engineering drawing: a label and a value per cell. */
+
+.mg-titleblock {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  margin: 0;
+  padding: 1px;
+  border-radius: var(--radius-sm);
+  background: var(--mg-edge);
+}
+
+.mg-titleblock__cell {
+  flex: 1 1 148px;
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--mg-ground);
+}
+
+.mg-titleblock__cell--wide { flex-basis: 260px; flex-grow: 2; }
+
+.mg-titleblock__label {
+  margin: 0 0 var(--space-1);
+  color: var(--mg-text-muted);
+  font: var(--text-label);
+  letter-spacing: 0.01em;
+}
+
+.mg-titleblock__value {
+  margin: 0;
+  color: var(--mg-text);
+  font: var(--text-small);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.mg-titleblock__value .mg-link + .mg-link { margin-left: var(--space-3); }
+
+/* ---------------------------------------------------------------- metrics */
+/* Cells carry their own left and bottom rules; the frame clips the outermost ones,
+   so the strip stays clean however the cells wrap. */
+
+.mg-metrics { overflow: hidden; border-block: 1px solid var(--mg-rule); }
+
+.mg-metrics__list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 -1px calc(var(--space-4) * -1 - 1px);
+  padding: 0;
+}
+
+.mg-metric {
+  flex: 1 1 132px;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  min-width: 0;
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  border-left: 1px solid var(--mg-rule);
+  border-bottom: 1px solid var(--mg-rule);
+}
+
+.mg-metric__value {
+  margin: 0;
+  color: var(--mg-text);
+  font: var(--text-figure);
+  font-variant-numeric: tabular-nums;
+}
+
+/* A value that is a phrase, not a number: smaller, on the same baseline band. */
+.mg-metric__value--phrase { font-size: 26px; line-height: 44px; }
+
+.mg-metric__label {
+  margin: var(--space-1) 0 0;
+  color: var(--mg-text-muted);
+  font: var(--text-label);
+  letter-spacing: 0.01em;
+}
+
+/* --------------------------------------------------------------- pipeline */
+/* The schematic. An ordered list of stages joined by arrows.
+   Rectangle: a step built here. Hexagon: a gate that can stop the flow. Capsule: something outside.
+
+   Three layouts. WRAP (the base, `card` size): stages flow and wrap like words.
+   STACK (`detail`, and `hero` whenever one line will not hold): stages run down a rail.
+   LINE (`hero` from 900px, and a project plate wide enough): one row, the arrows take up the slack.
+   LINE is only used when it fits: the component marks a schematic `data-fit="no"` when it does not,
+   and seven or more hero stages never try. */
+
+.mg-pipe {
+  --mg-node-h: 32px;
+  --mg-link-w: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mg-pipe__stage { display: flex; align-items: center; max-width: 100%; }
+
+.mg-pipe__node {
+  position: relative;
+  z-index: 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--mg-node-h);
+  padding: 0 var(--space-3);
+  border: var(--stroke) solid var(--mg-stroke);
+  border-radius: var(--radius-sm);
+  background: var(--mg-ground);
+  color: var(--mg-text);
+  font: var(--text-small);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.mg-pipe__stage--external .mg-pipe__node { padding-inline: var(--space-4); border-radius: var(--radius-full); }
+
+.mg-pipe__stage--gate .mg-pipe__node {
+  padding-inline: calc(var(--space-3) + 9px);
+  border-color: transparent;
+  background: transparent;
+}
+
+.mg-pipe__stage--gate .mg-pipe__node::before,
+.mg-pipe__stage--gate .mg-pipe__node::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  clip-path: polygon(11px 0, calc(100% - 11px) 0, 100% 50%, calc(100% - 11px) 100%, 11px 100%, 0 50%);
+}
+
+.mg-pipe__stage--gate .mg-pipe__node::before { inset: calc(var(--stroke) * -1); background: var(--mg-stroke); }
+.mg-pipe__stage--gate .mg-pipe__node::after { inset: 0 0.4px; background: var(--mg-ground); }
+
+/* The arrow that trails every stage but the last: a line (with the pulse's dot parked off its start), then a head. */
+.mg-pipe__stage:not(:last-child)::after {
+  content: "";
+  order: 2;
+  flex: none;
+  width: var(--mg-link-w);
+  height: 9px;
+  background:
+    radial-gradient(circle at center, var(--signal) 0 3px, transparent 3.6px) -12px 50% / 9px 9px no-repeat,
+    linear-gradient(var(--mg-stroke), var(--mg-stroke)) 0 50% / 100% var(--stroke) no-repeat;
+}
+
+.mg-pipe__stage:not(:last-child)::before {
+  content: "";
+  order: 3;
+  flex: none;
+  width: 0;
+  height: 0;
+  margin-right: 3px;
+  border-block: 4.5px solid transparent;
+  border-left: 7px solid var(--mg-stroke);
+}
+
+/* STACK */
+
+.mg-pipe--detail,
+.mg-pipe--hero { --mg-node-h: 40px; flex-direction: column; flex-wrap: nowrap; align-items: flex-start; row-gap: 0; }
+
+.mg-pipe--detail .mg-pipe__stage,
+.mg-pipe--hero .mg-pipe__stage { position: relative; padding-bottom: var(--space-6); }
+
+.mg-pipe--detail .mg-pipe__stage:last-child,
+.mg-pipe--hero .mg-pipe__stage:last-child { padding-bottom: 0; }
+
+.mg-pipe--detail .mg-pipe__node,
+.mg-pipe--hero .mg-pipe__node { padding-inline: var(--space-4); font-size: 16px; font-weight: 600; }
+
+.mg-pipe--detail .mg-pipe__stage--external .mg-pipe__node,
+.mg-pipe--hero .mg-pipe__stage--external .mg-pipe__node { padding-inline: calc(var(--space-4) + 4px); }
+
+.mg-pipe--detail .mg-pipe__stage--gate .mg-pipe__node,
+.mg-pipe--hero .mg-pipe__stage--gate .mg-pipe__node { padding-inline: calc(var(--space-4) + 9px); }
+
+.mg-pipe--detail .mg-pipe__stage:not(:last-child)::after,
+.mg-pipe--hero .mg-pipe__stage:not(:last-child)::after {
+  position: absolute;
+  top: var(--mg-node-h);
+  bottom: 7px;
+  left: 27px;
+  width: 9px;
+  height: auto;
+  margin-left: -4.5px;
+  background:
+    radial-gradient(circle at center, var(--signal) 0 3px, transparent 3.6px) 50% -12px / 9px 9px no-repeat,
+    linear-gradient(var(--mg-stroke), var(--mg-stroke)) 50% 0 / var(--stroke) 100% no-repeat;
+}
+
+.mg-pipe--detail .mg-pipe__stage:not(:last-child)::before,
+.mg-pipe--hero .mg-pipe__stage:not(:last-child)::before {
+  position: absolute;
+  bottom: 0;
+  left: 27px;
+  margin: 0 0 0 -4.5px;
+  border-inline: 4.5px solid transparent;
+  border-block: 0;
+  border-top: 7px solid var(--mg-stroke);
+}
+
+/* Detail: each stage is a row, the note beside the node. */
+.mg-pipe--detail { align-items: stretch; }
+
+.mg-pipe--detail .mg-pipe__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  column-gap: var(--space-8);
+  align-items: start;
+  padding-bottom: var(--space-8);
+}
+
+.mg-pipe--detail .mg-pipe__node { justify-self: start; }
+
+.mg-pipe__note {
+  margin: 0;
+  padding-top: 8px;
+  max-width: 56ch;
+  color: var(--mg-text);
+  font: var(--text-small);
+  font-size: 16px;
+}
+
+@media (max-width: 599px) {
+  .mg-pipe--detail .mg-pipe__stage { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2); }
+  .mg-pipe--detail .mg-pipe__note { padding: 0 0 0 var(--space-12); }
+}
+
+/* LINE, for the hero */
+
+@media (min-width: 900px) {
+  .mg-pipe--hero:not([data-fit="no"]):not(:has(> :nth-child(7))) { --mg-node-h: 48px; --mg-link-w: 32px; flex-direction: row; align-items: center; }
+  .mg-pipe--hero:not([data-fit="no"]):not(:has(> :nth-child(7))) .mg-pipe__stage { position: static; padding-bottom: 0; }
+  .mg-pipe--hero:not([data-fit="no"]):not(:has(> :nth-child(7))) .mg-pipe__stage:not(:last-child) { flex: 1 1 auto; }
+  .mg-pipe--hero:not([data-fit="no"]):not(:has(> :nth-child(7))) .mg-pipe__node { font-size: 18px; }
+  .mg-pipe--hero:not([data-fit="no"]):not(:has(> :nth-child(7))) .mg-pipe__stage--external .mg-pipe__node { padding-inline: var(--space-6); }
+  .mg-pipe--hero:not([data-fit="no"]):not(:has(> :nth-child(7))) .mg-pipe__stage--gate .mg-pipe__node { padding-inline: calc(var(--space-4) + 12px); }
+
+  .mg-pipe--hero:not([data-fit="no"]):not(:has(> :nth-child(7))) .mg-pipe__stage:not(:last-child)::after {
+    position: static;
+    flex: 1 1 var(--mg-link-w);
+    width: auto;
+    min-width: 16px;
+    height: 9px;
+    margin: 0;
+    background:
+      radial-gradient(circle at center, var(--signal) 0 3px, transparent 3.6px) -12px 50% / 9px 9px no-repeat,
+      linear-gradient(var(--mg-stroke), var(--mg-stroke)) 0 50% / 100% var(--stroke) no-repeat;
+  }
+
+  .mg-pipe--hero:not([data-fit="no"]):not(:has(> :nth-child(7))) .mg-pipe__stage:not(:last-child)::before {
+    position: static;
+    margin: 0 3px 0 0;
+    border-inline: 0;
+    border-block: 4.5px solid transparent;
+    border-left: 7px solid var(--mg-stroke);
+  }
+}
+
+/* The pulse: a honey dot runs the arrows and each stage lights as it arrives.
+   It runs once when a schematic carries .mg-pipe--run, and again whenever its project entry is pointed at or focused. */
+
+@keyframes mg-node-lit {
+  0%, 100% { border-color: var(--mg-stroke); }
+  25%, 70% { border-color: var(--signal); }
+}
+
+@keyframes mg-gate-lit {
+  0%, 100% { background: var(--mg-stroke); }
+  25%, 70% { background: var(--signal); }
+}
+
+@keyframes mg-dot-across {
+  from { background-position: -12px 50%, 0 50%; }
+  to { background-position: calc(100% + 12px) 50%, 0 50%; }
+}
+
+@keyframes mg-dot-down {
+  from { background-position: 50% -12px, 50% 0; }
+  to { background-position: 50% calc(100% + 12px), 50% 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mg-pipe--run .mg-pipe__node,
+  .mg-project:hover .mg-pipe__node,
+  .mg-project:focus-within .mg-pipe__node {
+    animation: mg-node-lit calc(var(--mg-step) * 2) var(--mg-ease) calc(var(--i, 0) * var(--mg-step)) both;
+  }
+
+  .mg-pipe--run .mg-pipe__stage--gate .mg-pipe__node,
+  .mg-project:hover .mg-pipe__stage--gate .mg-pipe__node,
+  .mg-project:focus-within .mg-pipe__stage--gate .mg-pipe__node { animation: none; }
+
+  .mg-pipe--run .mg-pipe__stage--gate .mg-pipe__node::before,
+  .mg-project:hover .mg-pipe__stage--gate .mg-pipe__node::before,
+  .mg-project:focus-within .mg-pipe__stage--gate .mg-pipe__node::before {
+    animation: mg-gate-lit calc(var(--mg-step) * 2) var(--mg-ease) calc(var(--i, 0) * var(--mg-step)) both;
+  }
+
+  .mg-pipe--run .mg-pipe__stage:not(:last-child)::after,
+  .mg-project:hover .mg-pipe__stage:not(:last-child)::after,
+  .mg-project:focus-within .mg-pipe__stage:not(:last-child)::after {
+    animation: mg-dot-across var(--mg-step) linear calc(var(--i, 0) * var(--mg-step) + var(--mg-step) * 0.6) both;
+  }
+
+  .mg-pipe--detail.mg-pipe--run .mg-pipe__stage:not(:last-child)::after,
+  .mg-pipe--hero.mg-pipe--run .mg-pipe__stage:not(:last-child)::after { animation-name: mg-dot-down; }
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 900px) {
+  .mg-pipe--hero.mg-pipe--run:not([data-fit="no"]):not(:has(> :nth-child(7))) .mg-pipe__stage:not(:last-child)::after { animation-name: mg-dot-across; }
+}
+
+/* ------------------------------------------------------------ site header */
+
+.mg-header { background: var(--paper-raised); border-bottom: 1px solid var(--line); }
+
+.mg-header__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--space-8);
+  row-gap: var(--space-2);
+  min-height: 64px;
+  padding-block: var(--space-3);
+}
+
+.mg-wordmark {
+  margin-right: auto;
+  color: var(--ink);
+  font: var(--text-heading);
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 0;
+  text-decoration: none;
+  border-radius: 1px;
+}
+
+.mg-nav { display: flex; gap: var(--space-6); }
+
+.mg-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  color: var(--ink-muted);
+  font: var(--text-small);
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 1px;
+}
+
+.mg-nav__link:hover { color: var(--ink); }
+.mg-nav__link[aria-current] { color: var(--ink); font-weight: 600; }
+
+/* The current page: heavier and darker, with a lit bar under it. The bar is outlined, so it reads on white too. */
+.mg-nav__link[aria-current]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 2px 0;
+  height: 5px;
+  border: 1px solid var(--on-signal);
+  background: var(--signal);
+}
+
+/* Theme switch: two words, the selected one lit. */
+.mg-switch {
+  display: inline-flex;
+  padding: 0;
+  border: var(--stroke) solid var(--mg-edge);
+  border-radius: var(--radius-sm);
+}
+
+.mg-switch__opt {
+  min-width: 52px;
+  min-height: 32px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: 1px;
+  background: transparent;
+  color: var(--mg-text-muted);
+  font: var(--text-small);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.mg-switch__opt:hover { color: var(--mg-text); }
+.mg-switch__opt[aria-pressed="true"] { background: var(--signal); color: var(--on-signal); font-weight: 600; }
+
+@media (max-width: 599px) {
+  .mg-nav { order: 3; flex-basis: 100%; }
+}
+
+/* ------------------------------------------------------------------- hero */
+
+.mg-hero { padding-block: var(--space-16); }
+
+.mg-hero__statement {
+  margin: 0;
+  max-width: 17em;
+  font: var(--text-hero);
+  font-size: clamp(44px, 1.6rem + 4.6vw, 84px);
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+.mg-hero__lead {
+  margin: var(--space-6) 0 0;
+  max-width: 52ch;
+  color: var(--mg-text);
+  font: var(--text-lead);
+  text-wrap: pretty;
+}
+
+.mg-hero__figure { margin: var(--space-12) 0 0; }
+
+.mg-hero__caption {
+  margin-top: var(--space-4);
+  color: var(--mg-text-muted);
+  font: var(--text-small);
+}
+
+.mg-hero__block { margin-top: var(--space-12); }
+
+@media (min-width: 900px) {
+  .mg-hero { padding-block: var(--space-24) 72px; }
+  .mg-hero__figure { margin-top: 72px; }
+  .mg-hero__block { margin-top: 72px; }
+}
+
+/* ---------------------------------------------------------------- section */
+
+.mg-sectionhead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4) var(--space-8);
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-6);
+}
+
+.mg-sectionhead__title { margin: 0; font: var(--text-subheading); }
+.mg-sectionhead__note { margin: var(--space-1) 0 0; max-width: 56ch; color: var(--ink-muted); font: var(--text-small); font-size: 16px; }
+
+@media (min-width: 900px) {
+  .mg-sectionhead { margin-top: var(--space-16); }
+}
+
+/* ---------------------------------------------------------------- project */
+
+.mg-project {
+  position: relative;
+  container-type: inline-size;
+  padding-block: var(--space-4) var(--space-12);
+  border-top: 2px solid var(--mg-stroke);
+}
+
+.mg-project__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-6);
+  margin-bottom: var(--space-8);
+  color: var(--mg-text-muted);
+  font: var(--text-small);
+}
+
+.mg-project__year { font-variant-numeric: tabular-nums; }
+.mg-project__areas { margin-left: auto; }
+
+.mg-project__head { display: grid; gap: var(--space-6); }
+
+.mg-project__name { margin: 0; font: var(--text-heading); font-size: clamp(32px, 1.5rem + 2vw, 40px); letter-spacing: -0.008em; text-wrap: balance; }
+.mg-project__name a { color: inherit; text-decoration: none; border-radius: 1px; }
+/* The link's target is the whole entry, schematic included. */
+.mg-project__name a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.mg-project:hover .mg-project__name a { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.14em; }
+.mg-project__name a:focus-visible { outline: 2px solid transparent; box-shadow: var(--mg-ring); }
+
+.mg-project__tagline { margin: var(--space-3) 0 0; max-width: 40ch; font: var(--text-lead); text-wrap: pretty; }
+
+.mg-own { margin: 0; max-width: 52ch; color: var(--mg-text); font: var(--text-small); font-size: 16px; }
+.mg-own strong { font-weight: 600; }
+
+.mg-project__stack { margin: var(--space-3) 0 0; max-width: 52ch; color: var(--mg-text-muted); font: var(--text-small); }
+
+.mg-project__plate { margin-top: var(--space-8); }
+.mg-project__metrics { border-top: 0; }
+
+@container (min-width: 820px) {
+  .mg-project__head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--space-12); align-items: end; }
+  .mg-project__facts { padding-bottom: 4px; }
+}
+
+/* Wide enough for one line: the schematic runs the full width of the plate and the arrows take up the slack. */
+@container (min-width: 900px) {
+  .mg-project__plate { min-height: 120px; padding-inline: var(--space-8); }
+  .mg-project__plate .mg-pipe:not([data-fit="no"]):not(:has(> :nth-child(8))) { flex: 1; flex-wrap: nowrap; }
+  .mg-project__plate .mg-pipe:not([data-fit="no"]):not(:has(> :nth-child(8))) .mg-pipe__stage:not(:last-child) { flex: 1 1 auto; }
+  .mg-project__plate .mg-pipe:not([data-fit="no"]):not(:has(> :nth-child(8))) .mg-pipe__stage:not(:last-child)::after { flex: 1 1 var(--mg-link-w); min-width: 12px; }
+}
+
+/* Compact: for the second rank of work, two to a row. */
+.mg-project--compact { padding-bottom: var(--space-12); }
+.mg-project--compact .mg-project__meta { margin-bottom: var(--space-4); }
+.mg-project--compact .mg-project__head { gap: var(--space-3); }
+.mg-project--compact .mg-project__name { font: var(--text-subheading); letter-spacing: 0; }
+.mg-project--compact .mg-project__tagline { margin-top: var(--space-1); font: var(--text-small); font-size: 16px; }
+.mg-project--compact .mg-own { font-size: 15px; }
+.mg-project--compact .mg-project__plate { min-height: 112px; margin-top: var(--space-6); padding: var(--space-4); }
+.mg-project--compact .mg-project__plate .mg-pipe { flex: 0 1 auto; flex-wrap: wrap; }
+.mg-project--compact .mg-project__plate .mg-pipe .mg-pipe__stage:not(:last-child) { flex: none; }
+.mg-project--compact .mg-project__plate .mg-pipe .mg-pipe__stage:not(:last-child)::after { flex: none; }
+.mg-project--compact .mg-metric__value { font-size: 30px; }
+.mg-project--compact .mg-metric__value--phrase { font-size: 20px; line-height: 30px; }
+
+.mg-projects { display: grid; gap: 0 var(--space-12); }
+
+@media (min-width: 900px) {
+  .mg-projects--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ------------------------------------------------------------- work index */
+
+.mg-index { width: 100%; border-collapse: collapse; border-top: 2px solid var(--ink); font: var(--text-small); font-size: 16px; text-align: left; }
+.mg-index th, .mg-index td { padding: var(--space-3) var(--space-6) var(--space-3) 0; vertical-align: top; border-bottom: 1px solid var(--line); font-weight: 400; }
+.mg-index thead th { padding-block: var(--space-2); color: var(--ink-muted); font: var(--text-label); letter-spacing: 0.01em; }
+.mg-index tbody tr:hover { background: var(--paper-raised); }
+.mg-index__name { color: var(--ink); font-weight: 600; }
+a.mg-index__name { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 0.2em; text-decoration-color: var(--line-strong); }
+a.mg-index__name:hover { text-decoration-color: var(--ink); }
+a.mg-index__name:focus-visible { outline: 2px solid transparent; box-shadow: var(--mg-ring); border-radius: 1px; }
+.mg-index__desc { display: block; margin-top: 2px; max-width: 58ch; color: var(--ink-muted); font-size: 15px; }
+.mg-index td { color: var(--ink-muted); font-size: 15px; }
+.mg-index th:last-child, .mg-index td:last-child { padding-right: 0; }
+
+@media (max-width: 719px) {
+  .mg-index thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .mg-index, .mg-index tbody, .mg-index tr, .mg-index th, .mg-index td { display: block; }
+  .mg-index tr { padding-block: var(--space-3); border-bottom: 1px solid var(--line); }
+  .mg-index th, .mg-index td { padding: 0; border: 0; }
+  .mg-index td { margin-top: var(--space-1); }
+}
+
+/* ------------------------------------------------------------ case header */
+
+.mg-case { padding-top: var(--space-12); }
+.mg-case__back { display: inline-block; font: var(--text-small); font-size: 16px; }
+
+.mg-case__title {
+  margin: var(--space-6) 0 0;
+  font: var(--text-title);
+  font-size: clamp(36px, 1.5rem + 3vw, 56px);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.mg-case__tagline { margin: var(--space-4) 0 0; max-width: 44ch; font: var(--text-lead); text-wrap: pretty; }
+.mg-case__block { margin-top: var(--space-8); }
+.mg-case .mg-own { margin-top: var(--space-6); font-size: 16px; }
+.mg-case__plate { margin-top: var(--space-12); padding-block: var(--space-12); }
+.mg-case__caption { margin: 0 0 var(--space-8); max-width: 56ch; color: var(--mg-text-muted); font: var(--text-small); font-size: 16px; }
+.mg-case__metrics { margin-top: 0; }
+
+/* ---------------------------------------------------------------- prose */
+
+.mg-section {
+  display: grid;
+  gap: var(--space-4) var(--space-6);
+  padding-block: var(--space-8) var(--space-12);
+  border-top: 1px solid var(--line);
+}
+
+.mg-section__title { margin: 0; font: var(--text-subheading); text-wrap: balance; }
+.mg-section__body { min-width: 0; max-width: var(--measure); }
+
+@media (min-width: 900px) {
+  .mg-section { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .mg-section__title { grid-column: 1 / span 4; padding-right: var(--space-6); }
+  .mg-section__body { grid-column: 5 / span 8; }
+}
+
+.mg-prose { font: var(--text-body); color: var(--ink); }
+.mg-prose > * { margin-block: 0; }
+.mg-prose > * + * { margin-top: 1.1em; }
+.mg-prose strong, .mg-prose em { font-style: normal; font-weight: 600; }
+.mg-prose a { color: var(--link); text-decoration-thickness: 1.5px; text-underline-offset: 0.2em; }
+
+.mg-prose code,
+.mg-code {
+  padding: 0.1em 0.36em;
+  border-radius: var(--radius-sm);
+  background: var(--paper-sunk);
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  font-variant-ligatures: none;
+}
+
+.mg-prose ul { padding: 0; list-style: none; }
+.mg-prose li { position: relative; padding-left: 1.5em; }
+.mg-prose li + li { margin-top: 0.5em; }
+.mg-prose li::before { content: ""; position: absolute; left: 0; top: 0.8em; width: 0.7em; height: 0; border-top: var(--stroke) solid currentColor; }
+
+.mg-codeblock {
+  margin: 0;
+  padding: var(--space-4) var(--space-6);
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  background: var(--paper-sunk);
+  color: var(--ink);
+  font: var(--text-code);
+  font-variant-ligatures: none;
+}
+
+/* ------------------------------------------------------------- known gaps */
+/* On a drawing a dashed line is an edge that is hidden or not yet built. Same meaning here. */
+
+.mg-gaps {
+  padding: var(--space-6);
+  border: var(--stroke) dashed var(--mg-edge);
+  border-radius: var(--radius-sm);
+}
+
+.mg-gaps__title { margin: 0 0 var(--space-3); font: var(--text-subheading); font-size: 18px; }
+.mg-gaps .mg-prose { font-size: 16px; }
+
+/* ----------------------------------------------------------- next project */
+
+.mg-next {
+  display: grid;
+  gap: var(--space-2) var(--space-6);
+  margin-top: var(--space-12);
+  padding-block: var(--space-6) var(--space-4);
+  border-top: 2px solid var(--ink);
+}
+
+.mg-next__label { margin: 0; padding-top: 10px; color: var(--ink-muted); font: var(--text-subheading); font-weight: 500; }
+
+.mg-next__name {
+  color: var(--ink);
+  font: var(--text-heading);
+  font-size: clamp(32px, 1.5rem + 2vw, 40px);
+  letter-spacing: -0.008em;
+  text-decoration: none;
+  border-radius: 1px;
+}
+
+.mg-next__name:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.14em; }
+.mg-next__name:focus-visible { outline: 2px solid transparent; box-shadow: var(--mg-ring); }
+.mg-next__tagline { margin: var(--space-2) 0 0; max-width: 44ch; color: var(--ink); font: var(--text-lead); }
+
+@media (min-width: 900px) {
+  .mg-next { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .mg-next__label { grid-column: 1 / span 4; }
+  .mg-next__body { grid-column: 5 / span 8; }
+}
+
+/* ------------------------------------------------------------- experience */
+
+.mg-exp {
+  display: grid;
+  gap: var(--space-2) var(--space-6);
+  padding-block: var(--space-6) var(--space-8);
+  border-top: 1px solid var(--line);
+}
+
+.mg-exp__period { margin: 0; padding-top: 3px; color: var(--ink-muted); font: var(--text-small); font-size: 16px; font-variant-numeric: tabular-nums; }
+.mg-exp__role { margin: 0; font: var(--text-subheading); }
+.mg-exp__org { margin: 2px 0 0; color: var(--ink-muted); font: var(--text-small); font-size: 16px; }
+.mg-exp__summary { margin: var(--space-3) 0 0; max-width: var(--measure); font: var(--text-body); }
+.mg-exp .mg-prose { margin-top: var(--space-3); max-width: var(--measure); font-size: 16px; }
+.mg-exp__stack { margin: var(--space-3) 0 0; color: var(--ink-muted); font: var(--text-small); }
+
+@media (min-width: 900px) {
+  .mg-exp { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .mg-exp__period { grid-column: 1 / span 4; }
+  .mg-exp__main { grid-column: 5 / span 8; }
+}
+
+/* An empty slot: dashed, because it is not built yet. */
+.mg-exp--slot { border-top-style: dashed; border-top-color: var(--line-strong); border-top-width: var(--stroke); }
+.mg-exp--slot .mg-exp__role, .mg-exp--slot .mg-exp__summary, .mg-exp--slot .mg-prose { color: var(--ink-muted); }
+
+/* ---------------------------------------------------------------- contact */
+
+.mg-contact { margin-top: var(--space-12); padding-block: var(--space-16); }
+.mg-contact__lead { margin: 0; max-width: 40ch; color: var(--mg-text); font: var(--text-lead); }
+
+.mg-contact__email {
+  display: inline-block;
+  margin-top: var(--space-4);
+  color: var(--on-blueprint);
+  font: var(--text-title);
+  font-size: clamp(30px, 1rem + 4.4vw, 64px);
+  letter-spacing: -0.01em;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--blueprint-line);
+  text-underline-offset: 0.12em;
+  overflow-wrap: anywhere;
+  border-radius: 1px;
+}
+
+.mg-contact__email:hover { text-decoration-color: var(--signal); }
+.mg-contact__email:focus-visible { outline: 2px solid transparent; box-shadow: var(--mg-ring); }
+.mg-contact__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-8); }
+.mg-contact__block { margin-top: var(--space-12); }
+.mg-contact__colophon { margin: var(--space-8) 0 0; color: var(--mg-text-muted); font: var(--text-small); }
+
+@media (min-width: 900px) {
+  .mg-contact { margin-top: var(--space-16); padding-block: var(--space-24) var(--space-16); }
+}

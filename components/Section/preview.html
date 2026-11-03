@@ -1,0 +1,30 @@
+<!-- @dsCard group="Case study" width=1152 height=220 subtitle="A heading hung beside its prose" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Section</title>
+<style>
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../preview.js"></script>
+<script src="../lib/react.production.min.js"></script>
+<script src="../lib/react-dom.production.min.js"></script>
+<script src="../bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function () {
+  var M = window.MG, h = React.createElement;
+  var el = h('div', { className: 'mg-wrap' },
+    h(M.Section, { title: 'Keeping the event loop honest' },
+      h('p', null, 'Blocking work is pushed through ', h('code', null, 'run_in_executor'), ' so a single slow call cannot stall the ingest loop, and every stream auto-reconnects.'),
+      h('p', null, 'An unattended data engine that dies quietly on a dropped socket is worse than no data engine.')));
+  ReactDOM.createRoot(document.getElementById('root')).render(el);
+})();
+</script>
+</body>
+</html>

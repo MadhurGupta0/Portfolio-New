@@ -1,0 +1,39 @@
+<!-- @dsCard group="Case study" width=880 height=343 subtitle="Reading text" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Prose</title>
+<style>
+  .demo { padding: var(--space-6); }
+  .demo--stack { display: grid; gap: var(--space-8); }
+  .demo__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+  .demo__row--wide { gap: var(--space-8); }
+  .demo__plate { min-height: 0; }
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../preview.js"></script>
+<script src="../lib/react.production.min.js"></script>
+<script src="../lib/react-dom.production.min.js"></script>
+<script src="../bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function () {
+  var M = window.MG, h = React.createElement;
+  var el = h('div', { className: 'demo' },
+    h(M.Prose, { className: 'mg-section__body' },
+      h('p', null, 'HTTP has had a ', h('code', null, '402 Payment Required'), ' status code sitting unused since 1997, because there was never a settlement layer fast or cheap enough to make per-request payment sensible. ', h('strong', null, 'Stablecoins on an L2 change that arithmetic.')),
+      h('ul', null,
+        h('li', null, 'An unpaid request gets a 402 describing what payment would satisfy it.'),
+        h('li', null, 'The client signs an EIP-712 authorization.'),
+        h('li', null, 'A facilitator settles USDC on Base, and access is granted.')),
+      h('p', null, 'It is implemented twice, in Python and in TypeScript, against the same protocol. ', h('a', { href: '#x402-backend' }, 'See the project'), '.')));
+  ReactDOM.createRoot(document.getElementById('root')).render(el);
+})();
+</script>
+</body>
+</html>

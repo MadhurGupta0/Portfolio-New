@@ -1,0 +1,39 @@
+<!-- @dsCard group="Page" width=1280 height=718 subtitle="The top of the home page" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hero</title>
+<style>
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../preview.js"></script>
+<script src="../lib/react.production.min.js"></script>
+<script src="../lib/react-dom.production.min.js"></script>
+<script src="../bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function () {
+  var M = window.MG, h = React.createElement;
+  var el = h(M.Hero, {
+    statement: 'Madhur Gupta builds the backends behind AI products.',
+    lead: 'Streaming APIs, real-time voice, billing across three app stores, and payments that settle on-chain.',
+    flowLabel: 'How one voice turn flows through SelfMind',
+    stages: [{ label: 'Microphone', kind: 'external' }, 'Speech to text', 'Language model', 'Text to speech', { label: 'Speaker', kind: 'external' }],
+    caption: h(React.Fragment, null, 'One voice turn in SelfMind, a production AI wellness app. ', h(M.TextLink, { href: '#selfmind' }, 'Read the case study')),
+    facts: [
+      { label: 'Role', value: 'AI and full-stack developer' },
+      { label: 'Based in', value: 'Noida, India' },
+      { label: 'Email', wide: true, value: h(M.TextLink, { href: 'mailto:guptamadhur03@gmail.com' }, 'guptamadhur03@gmail.com') },
+      { label: 'Elsewhere', value: [h(M.TextLink, { key: 'g', href: 'https://github.com/MadhurGupta0' }, 'GitHub'), h(M.TextLink, { key: 'l', href: 'https://www.linkedin.com/in/madhur-gupta-4330162a6a' }, 'LinkedIn')] }
+    ]
+  });
+  ReactDOM.createRoot(document.getElementById('root')).render(el);
+})();
+</script>
+</body>
+</html>

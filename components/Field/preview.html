@@ -1,0 +1,40 @@
+<!-- @dsCard group="Schematic" width=1000 height=471 subtitle="The blueprint surface" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Field</title>
+<style>
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../preview.js"></script>
+<script src="../lib/react.production.min.js"></script>
+<script src="../lib/react-dom.production.min.js"></script>
+<script src="../bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function () {
+  var M = window.MG, h = React.createElement;
+  var el = h(M.Field, { variant: 'band', as: 'section' },
+    h('div', { className: 'mg-wrap' },
+      h('p', { className: 'lead', style: { margin: 0, maxWidth: '46ch' } },
+        'Anything placed on a field draws in blueprint colours without being told to: text, ',
+        h(M.TextLink, { href: '#work' }, 'links'), ', rules, schematics, the focus ring.'),
+      h('div', { style: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--space-6)', marginTop: 'var(--space-8)' } },
+        h(M.Button, { variant: 'primary' }, 'Copy email'),
+        h(M.Button, null, 'Download résumé'),
+        h(M.StatusMark, { status: 'live' })),
+      h(M.TitleBlock, { className: 'mg-hero__block', facts: [
+        { label: 'Role', value: 'AI and full-stack developer' },
+        { label: 'Based in', value: 'Noida, India' },
+        { label: 'Elsewhere', value: [h(M.TextLink, { key: 'g', href: 'https://github.com/MadhurGupta0' }, 'GitHub'), h(M.TextLink, { key: 'l', href: 'https://www.linkedin.com/in/madhur-gupta-4330162a6a' }, 'LinkedIn')] }
+      ] })));
+  ReactDOM.createRoot(document.getElementById('root')).render(el);
+})();
+</script>
+</body>
+</html>

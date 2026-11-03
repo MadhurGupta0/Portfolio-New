@@ -1,0 +1,66 @@
+<!-- @dsCard height=336 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Madhur Gupta Portfolio</title>
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--paper); color: var(--ink); overflow: hidden; }
+  .cover { position: relative; height: 336px; overflow: hidden; }
+  /* the composition: a 480-wide box on the right half of the 960 layout, clear of the name */
+  .art { position: absolute; top: 0; left: 480px; width: 480px; height: 336px; overflow: hidden; }
+  .art svg { display: block; width: 480px; height: 336px; }
+  .field { fill: var(--blueprint); }
+  .deep { fill: var(--ink); }
+  .lamp { fill: var(--signal); }
+  .tint { fill: var(--blueprint-line); }
+  .grid { stroke: var(--blueprint-grid); stroke-width: 1; }
+  .wire { fill: none; stroke: var(--blueprint-line); stroke-width: var(--stroke); }
+  .node { fill: var(--blueprint); stroke: var(--blueprint-line); stroke-width: var(--stroke); }
+  .step { rx: var(--radius-sm); }
+  .head { fill: var(--blueprint-line); }
+  .lit { stroke: var(--signal); }
+  /* name and tagline in flow, pinned by the block's bottom edge */
+  .words { position: absolute; left: var(--space-6); bottom: var(--space-6); max-width: 440px; }
+  .name { margin: 0; font: var(--text-hero); font-size: 96px; line-height: 0.92; letter-spacing: -0.012em; color: var(--ink); }
+  .tag { margin: var(--space-3) 0 0 2px; font: var(--text-label); font-size: 14px; line-height: 20px; letter-spacing: 0; font-weight: 400; color: var(--ink-muted); }
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../preview.js"></script>
+<script src="../lib/react.production.min.js"></script>
+<script src="../lib/react-dom.production.min.js"></script>
+<script src="../bundle.js"></script>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 336" width="480" height="336">
+<!--
+  blocks      blueprint 456x240 bled off the top and right (the field, largest) · ink 216x96 · signal 48x96 (it only ever means live or selected, so it stays narrow) · blueprint-line 192x96 as the relief tint, the three bled off the bottom: 49% of 960x336
+  arrangement the way a project entry is built: one field with a strip of unequal cells flush beneath it, no gutters, starting one grid-pitch into the box
+  pattern     the literal motif, from "every project is drawn as the path its data takes": one schematic of three stage shapes (capsule, rectangle, hexagon) joined by arrows and running off the right edge, over the drafting grid in blueprint-grid; the middle stage is lit in signal
+  scales      grid and block edges on grid-pitch (space-6); stages space-12 tall and 4, 5 and 6 pitches wide; rectangle corners radius-sm; the capsule's rx is half its height; hexagon points cut space-3; strokes at stroke
+-->
+<rect class="field" x="24" y="0" width="456" height="240"/>
+<path class="grid" d="M48 0v240M72 0v240M96 0v240M120 0v240M144 0v240M168 0v240M192 0v240M216 0v240M240 0v240M264 0v240M288 0v240M312 0v240M336 0v240M360 0v240M384 0v240M408 0v240M432 0v240M456 0v240M24 24h456M24 48h456M24 72h456M24 96h456M24 120h456M24 144h456M24 168h456M24 192h456M24 216h456"/>
+<rect class="deep" x="24" y="240" width="216" height="96"/>
+<rect class="lamp" x="240" y="240" width="48" height="96"/>
+<rect class="tint" x="288" y="240" width="192" height="96"/>
+<path class="wire" d="M168 120h41M336 120h41"/>
+<path class="head" d="M208 115.5l8 4.5-8 4.5zM376 115.5l8 4.5-8 4.5z"/>
+<rect class="node" x="72" y="96" width="96" height="48" rx="24"/>
+<rect class="node step lit" x="216" y="96" width="120" height="48" rx="2"/>
+<path class="node" d="M396 96h120l12 24-12 24H396l-12-24z"/>
+<circle class="lamp" cx="356" cy="120" r="4"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">Madhur&nbsp;Gupta Portfolio</h1>
+<p class="tag">Every project drawn as the path its data takes.</p>
+</div>
+</div>
+</body>
+</html>

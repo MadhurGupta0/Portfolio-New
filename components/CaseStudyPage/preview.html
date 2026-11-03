@@ -1,0 +1,69 @@
+<!-- @dsCard group="Pages" width=1280 height=3178 page subtitle="A case study, assembled" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Case study</title><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../bundle.css">
+<script src="../preview.js"></script>
+<script src="../lib/react.production.min.js"></script>
+<script src="../lib/react-dom.production.min.js"></script>
+<script src="../bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function () {
+  var M = window.MG, h = React.createElement;
+  var code = function (t) { return h('code', null, t); };
+
+  var header = h(M.SiteHeader, { name: 'Madhur Gupta', href: '../HomePage/preview.html', links: [
+    { label: 'Work', href: '../HomePage/preview.html#work', current: true },
+    { label: 'Experience', href: '../HomePage/preview.html#experience' },
+    { label: 'Contact', href: '#contact' }
+  ] });
+
+  var opening = h(M.CaseHeader, {
+    name: 'Mello Go Backend',
+    backHref: '../HomePage/preview.html#work',
+    tagline: 'A standard-library Go backend for a production AI wellness app: 101 routes and a WebSocket voice relay.',
+    role: 'Sole author', year: '2026', status: 'built',
+    flowLabel: 'How a live voice session passes through the relay',
+    flowCaption: 'The path a live voice session takes through the relay, the one part of the system where a mistake is heard immediately.',
+    stages: [
+      { label: 'App', kind: 'external', note: 'Asks the API for a ticket. Minting does only a read-only quota check, so a ticket that is never redeemed costs nothing.' },
+      { label: 'Origin policy', kind: 'gate', note: 'An explicit rule for native clients. Assuming they send no Origin once killed every in-app voice call.' },
+      { label: 'Ticket', note: 'Consumed with an atomic DELETE … RETURNING, so it can be redeemed exactly once.' },
+      { label: 'Quota gate', kind: 'gate', note: 'Fails closed. The billing lease starts here, immediately after the ticket is consumed.' },
+      { label: 'Audio pumps', note: 'Three pumps carry the audio, under a heartbeat kill switch.' }
+    ],
+    metrics: [{ value: '101', label: 'HTTP routes' }, { value: '62', label: 'Go files' }, { value: '~19.9k', label: 'lines of Go' }, { value: '2', label: 'external dependencies' }]
+  });
+
+  var body = h('div', { className: 'mg-wrap', style: { marginTop: 'var(--space-16)' } },
+    h(M.Section, { title: 'The problem' },
+      h('p', null, 'An AI wellness backend has to do several uncomfortable things at once: hold model credentials the client must never see, stream tokens fast enough that the app feels live, keep one user’s journal structurally unreachable from another user’s session, never let a safety-critical path fail open, and settle real money across three app stores.'),
+      h('p', null, 'Those are runtime and correctness constraints more than they are feature work, which is what the whole design answers to.')),
+    h(M.Section, { title: 'Two dependencies, on purpose' },
+      h('p', null, code('golang.org/x/text'), ' is the only library in the API binary, and only because both crisis detection and the memory obfuscation normalizer start with Unicode NFKC, which the standard library does not provide. Dropping it would reopen the fullwidth-character and ligature bypasses the normalization order exists to close.'),
+      h('p', null, 'The relay adds ', code('coder/websocket'), '. Hand-rolling RFC 6455 framing, masking and fragmentation for a live audio path is exactly the kind of risk a dependency is for. Everything else is standard library.')),
+    h(M.Section, { title: 'Ownership comes from the token' },
+      h('p', null, 'Every handler reads the user id from the auth context and ignores any ', code('user_id'), ' in the body or query, and writes are additionally scoped by user id so the database enforces ownership too.'),
+      h('p', null, 'Database errors are logged in full but returned as a generic ', code('database_error'), ', because echoing the driver message leaks column, constraint and table names to anyone who can induce an error.')),
+    h(M.Section, { title: 'Verification' },
+      h('p', null, 'It builds and runs: the container image compiles clean and the service was brought up in Docker. The release gate is the crisis-detection parity suite in ', code('crisis_test.go'), ', which pins the keyword set, the normalization order and the accepted false positives. A failure there is a release blocker, not a flaky test.'),
+      h(M.KnownGaps, { items: [
+        'The full practice-detection test matrix is incomplete.',
+        'The adaptive quiz path is not implemented.',
+        'The Razorpay plan ids in the billing code are still placeholders.'
+      ] })),
+    h(M.NextProject, { name: 'SelfMind Content Engine', href: '../ProjectPage/preview.html?project=content-engine', tagline: 'Six-layer AI content pipeline with human-in-the-loop approval' })
+  );
+
+  var contact = h(M.ContactBlock, { id: 'contact', lead: 'Email is the fastest way to reach me.', email: 'guptamadhur03@gmail.com', location: 'Noida, India',
+    links: [{ label: 'GitHub', href: 'https://github.com/MadhurGupta0' }, { label: 'LinkedIn', href: 'https://www.linkedin.com/in/madhur-gupta-4330162a6a' }] });
+
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null, header, h('main', null, opening, body), contact));
+})();
+</script>
+</body>
+</html>
