@@ -112,6 +112,20 @@ window.MGProjects = [
     "slug": "mello-backend-go"
   },
   {
+    "name": "RentFlow",
+    "slug": "rentflow",
+    "href": "../ProjectPage/preview.html?project=rentflow",
+    "repository": "https://github.com/MadhurGupta0/Rentflow",
+    "tagline": "Rent and electricity management with a Go backend, billing and payment ledgers",
+    "status": "built",
+    "year": "2026",
+    "categories": ["Full-Stack", "Backend"],
+    "contribution": "Built by me. A working rent-to-payment flow, with web and mobile clients and ongoing development.",
+    "techStack": ["Go", "net/http", "pgx", "PostgreSQL", "React", "TypeScript", "React Native", "Expo"],
+    "flowLabel": "How a rental becomes a bill, payment and balance in RentFlow",
+    "stages": ["Rental", "Meter reading", { "label": "Billing readiness", "kind": "gate" }, "Bill", "Payment", "Balance due"]
+  },
+  {
     "name": "SelfMind Content Engine",
     "href": "../ProjectPage/preview.html?project=content-engine",
     "tagline": "Six-layer AI content pipeline with human-in-the-loop approval",

@@ -1,4 +1,15 @@
 window.MGCaseStudyFlows = {
+  'rentflow': {
+    caption: 'The documented RentFlow billing journey: a rental and its meter readings become a reviewed bill, an allocated payment and a remaining balance.',
+    stages: [
+      { label: 'Rental', note: 'A property, unit and tenant are connected through an occupancy. The rental carries its rent plan, deposit and electricity method.' },
+      { label: 'Meter reading', note: 'A reading is recorded against a meter. The web workflow displays consumption and warnings before the reading contributes to electricity billing.' },
+      { label: 'Billing readiness', kind: 'gate', note: 'The monthly readiness check identifies what blocks billing. Previews and draft bills provide a review boundary before finalization.' },
+      { label: 'Bill', note: 'Draft bill lines can be reviewed and recalculated before finalization. Finalized bills expose PDF downloads, share links and UPI payment details.' },
+      { label: 'Payment', note: 'The payment API requires an Idempotency-Key and provides an allocation preview. Reversal and reallocation are documented operations rather than edits to the rent plan.' },
+      { label: 'Balance due', note: 'The occupancy ledger and dues views show the money still owed after allocations. Advance credit and partial payments are represented separately from new charges.' }
+    ]
+  },
   'selfmind': {
     caption: 'The documented path of a chat message through SelfMind, with the role of each stage explained beside it.',
     stages: [

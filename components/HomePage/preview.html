@@ -11,6 +11,7 @@
 <script src="../lib/react.production.min.js"></script>
 <script src="../lib/react-dom.production.min.js"></script>
 <script src="../bundle.js?v=2"></script>
+<script src="../projects.js?v=3"></script>
 </head>
 <body>
 <div id="root"></div>
@@ -70,6 +71,7 @@
       stages: [{ label: 'App', kind: 'external' }, { label: 'Bearer auth', kind: 'gate' }, 'Handler', { label: 'Crisis check', kind: 'gate' }, 'Model client', 'Token stream'],
       metrics: [{ value: '101', label: 'HTTP routes' }, { value: '62', label: 'Go files' }, { value: '~19.9k', label: 'lines of Go' }, { value: '2', label: 'external dependencies' }]
     }),
+    h(M.ProjectCard, window.MGProjects.find(function (project) { return project.slug === 'rentflow'; })),
     h('div', { className: 'mg-projects mg-projects--pair' },
       h(M.ProjectCard, {
         compact: true, name: 'SelfMind Content Engine', href: '../ProjectPage/preview.html?project=content-engine',

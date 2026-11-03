@@ -1,4 +1,15 @@
 window.MGCaseStudies = {
+  'rentflow': {
+    problem: 'Property owners need a single account of rent, electricity consumption and money received. A rental can span several units, rent can change over time, and a partial payment must reduce the correct balance without creating another charge.',
+    approach: 'RentFlow combines a Go net/http API and PostgreSQL with React and TypeScript on the web and React Native with Expo on mobile. The documented first working flow runs from property, unit and tenant setup through a rental, meter reading, bill, payment and balance due. Development is ongoing; a built workflow is not a claim of a completed production launch.',
+    sections: [
+      { title: 'A workspace owns the records', text: 'The backend documents workspace membership and permission checks in its route table, alongside PostgreSQL Row-Level Security. Properties, tenants, occupancies and meter records belong to that workspace. The same route metadata generates the API reference and its access requirements.' },
+      { title: 'Readiness comes before a finalized bill', text: 'Rent plans, meter readings and additional charges feed billing. The API exposes a readiness check, bill previews and draft generation before finalization. The web billing screen follows that sequence, letting the owner inspect a month before turning drafts into finalized bills.' },
+      { title: 'Payments change the ledger, not the rent plan', text: 'Payment creation requires an Idempotency-Key and offers an allocation preview. The documented backend includes reversals, reallocation, advance credit, occupancy ledgers and aged dues. These boundaries separate money received from charges raised and make the remaining balance visible.' }
+    ],
+    verification: 'The repository documents backend tests for enforced route security and documented responses, plus Playwright tests for the complete property-to-balance flow, billing, payments and page rendering. These are repository-documented checks; the RentFlow application test suites were not executed as part of adding this portfolio entry.',
+    gaps: ['The repository is still under development; client completion and production readiness should not be inferred from the working core flow.', 'The remaining-work checklist records production setup tasks for authentication branding and messaging providers.', 'Production operating scale and independently measured reliability results are not reported here.']
+  },
   'selfmind': {
     problem: 'A production mental-wellness companion spans web, iOS and Android. Chat, voice and paid access are parts of the same product, so the backend work extends beyond returning a model response.',
     approach: 'The documented scope combines a Flask REST API, Supabase and PostgreSQL, Azure OpenAI, and LiveKit. The portfolio identifies backend REST APIs, billing and entitlements, voice agents and the web frontend as my contribution to this team-built product.',

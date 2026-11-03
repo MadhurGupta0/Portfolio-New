@@ -10,9 +10,9 @@
 <script src="../lib/react.production.min.js"></script>
 <script src="../lib/react-dom.production.min.js"></script>
 <script src="../bundle.js?v=2"></script>
-<script src="../projects.js"></script>
-<script src="../case-studies.js"></script>
-<script src="../case-study-flows.js"></script>
+<script src="../projects.js?v=3"></script>
+<script src="../case-studies.js?v=3"></script>
+<script src="../case-study-flows.js?v=3"></script>
 </head>
 <body>
 <div id="root"></div>
@@ -38,7 +38,7 @@
     var study = window.MGCaseStudies[project.slug];
     var flow = window.MGCaseStudyFlows[project.slug];
     var gaps = study ? study.gaps.slice() : ['Detailed implementation notes are not supplied.'];
-    gaps.push('Repository or live-site links and independent verification evidence are not supplied.');
+    if (!project.repository) gaps.push('Repository or live-site links and independent verification evidence are not supplied.');
     if (!project.role && !project.contribution) gaps.push('Ownership has not been provided.');
     if (!project.year) gaps.push('Project dates have not been provided.');
     if (!project.status) gaps.push('Project status has not been provided.');
@@ -64,7 +64,8 @@
         }),
         h(M.Section, { title: 'Verification' },
           h('p', null, study ? study.verification : 'Verification evidence is not supplied.'),
-          h(M.KnownGaps, { items: gaps })), 
+          project.repository && h('p', null, h(M.TextLink, { href: project.repository }, 'View the project repository')),
+          h(M.KnownGaps, { items: gaps })),
         h(M.NextProject, { name: next.name, href: next.href, tagline: next.tagline || next.description })));
   }
   var contact = h(M.ContactBlock, { id: 'contact', lead: 'Email is the fastest way to reach me.',
