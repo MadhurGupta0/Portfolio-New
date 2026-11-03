@@ -12,6 +12,7 @@
 <script src="../bundle.js?v=2"></script>
 <script src="../projects.js"></script>
 <script src="../case-studies.js"></script>
+<script src="../case-study-flows.js"></script>
 </head>
 <body>
 <div id="root"></div>
@@ -35,17 +36,23 @@
   } else {
     document.title = project.name + ' — case study';
     var study = window.MGCaseStudies[project.slug];
+    var flow = window.MGCaseStudyFlows[project.slug];
     var gaps = study ? study.gaps.slice() : ['Detailed implementation notes are not supplied.'];
     gaps.push('Repository or live-site links and independent verification evidence are not supplied.');
     if (!project.role && !project.contribution) gaps.push('Ownership has not been provided.');
     if (!project.year) gaps.push('Project dates have not been provided.');
     if (!project.status) gaps.push('Project status has not been provided.');
-    if (!project.stages) gaps.push('The system stages have not been provided; no pipeline is inferred.');
+    if (flow && flow.conceptual) gaps.push('The schematic is conceptual; implemented system stages and transitions have not been supplied.');
     if (!project.metrics) gaps.push('Measured outcomes have not been provided.');
     var index = window.MGProjects.indexOf(project);
     var next = window.MGProjects[(index + 1) % window.MGProjects.length];
     content = h('main', null,
-      h(M.CaseHeader, Object.assign({}, project, { tagline: project.tagline || project.description, backHref: home + '#work' })),
+      h(M.CaseHeader, Object.assign({}, project, {
+        tagline: project.tagline || project.description,
+        backHref: home + '#work',
+        stages: flow ? flow.stages : project.stages,
+        flowCaption: flow ? flow.caption : undefined
+      })),
       h('div', { className: 'mg-wrap', style: { marginTop: 'var(--space-16)' } },
         h(M.Section, { title: 'The problem' },
           h('p', null, study ? study.problem : project.tagline || project.description)),
