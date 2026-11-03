@@ -9,8 +9,9 @@
 <script src="../preview.js"></script>
 <script src="../lib/react.production.min.js"></script>
 <script src="../lib/react-dom.production.min.js"></script>
-<script src="../bundle.js"></script>
+<script src="../bundle.js?v=2"></script>
 <script src="../projects.js"></script>
+<script src="../case-studies.js"></script>
 </head>
 <body>
 <div id="root"></div>
@@ -33,8 +34,9 @@
       h(M.TextLink, { href: home + '#work' }, 'All work'));
   } else {
     document.title = project.name + ' — case study';
-    var gaps = ['The full problem statement and implementation decisions have not been provided.',
-      'Test results, verification evidence and repository or live-site links have not been provided.'];
+    var study = window.MGCaseStudies[project.slug];
+    var gaps = study ? study.gaps.slice() : ['Detailed implementation notes are not supplied.'];
+    gaps.push('Repository or live-site links and independent verification evidence are not supplied.');
     if (!project.role && !project.contribution) gaps.push('Ownership has not been provided.');
     if (!project.year) gaps.push('Project dates have not been provided.');
     if (!project.status) gaps.push('Project status has not been provided.');
@@ -45,11 +47,17 @@
     content = h('main', null,
       h(M.CaseHeader, Object.assign({}, project, { tagline: project.tagline || project.description, backHref: home + '#work' })),
       h('div', { className: 'mg-wrap', style: { marginTop: 'var(--space-16)' } },
-        h(M.Section, { title: 'What is documented' },
-          h('p', null, project.tagline || project.description),
-          h('p', null, 'This partial case study uses only the information supplied in the portfolio. Missing details are listed below.')),
-        h(M.Section, { title: 'Built with' }, h('p', null, project.techStack.join(', '))),
-        h(M.Section, { title: 'Known gaps' }, h(M.KnownGaps, { items: gaps })),
+        h(M.Section, { title: 'The problem' },
+          h('p', null, study ? study.problem : project.tagline || project.description)),
+        h(M.Section, { title: 'The approach' },
+          h('p', null, study ? study.approach : 'Detailed implementation notes are not supplied.'),
+          h('p', null, 'Built with: ' + project.techStack.join(', '))),
+        study && study.sections.map(function (section) {
+          return h(M.Section, { key: section.title, title: section.title }, h('p', null, section.text));
+        }),
+        h(M.Section, { title: 'Verification' },
+          h('p', null, study ? study.verification : 'Verification evidence is not supplied.'),
+          h(M.KnownGaps, { items: gaps })), 
         h(M.NextProject, { name: next.name, href: next.href, tagline: next.tagline || next.description })));
   }
   var contact = h(M.ContactBlock, { id: 'contact', lead: 'Email is the fastest way to reach me.',
